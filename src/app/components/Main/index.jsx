@@ -6,12 +6,12 @@ import * as THREE from "three";
 import fragmentShader from "./shaders/fragment.glsl";
 import vertexShader from "./shaders/vertex.glsl";
 
-import ScrollTrigger from "gsap/ScrollTrigger";
-
 import useDimensions from "@/utils/useDimensions";
 import Scene1 from "./_components/Scene1";
 import Scene2 from "./_components/Scene2_2";
 import Scene3 from "./_components/Scene3";
+
+import ScrollTrigger from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 

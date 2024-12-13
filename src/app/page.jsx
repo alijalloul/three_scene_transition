@@ -3,12 +3,37 @@
 import useDimensions from "@/utils/useDimensions";
 import { Environment, PerspectiveCamera } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
+import gsap from "gsap";
+import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
 import TitleMarquee from "./components/TitleMarquee";
 
+import ScrollTrigger from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
 export default function Home() {
-  const { windowWidth, windowHeight } = useDimensions();
+  const { windowHeight } = useDimensions();
+
+  const [color, setColor] = useState("black");
+
+  useEffect(() => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        start: "top top",
+        end: windowHeight / 2,
+        markers: false,
+        scrub: true,
+        onLeave: () => {
+          setColor("white");
+        },
+        onEnterBack: () => {
+          setColor("black");
+        },
+      },
+    });
+  });
 
   return (
     <div style={{ height: windowHeight * 6 }}>
@@ -20,8 +45,8 @@ export default function Home() {
           <Main />
         </Canvas>
 
-        <Header color="white" />
-        <TitleMarquee color="white" />
+        <Header color={color} />
+        <TitleMarquee color={color} />
       </div>
     </div>
   );

@@ -35,6 +35,12 @@ const Scene2 = ({ scene }) => {
         markers: false,
         scrub: true,
         snap: 1 / (colors.length - 1),
+        onEnter: () => {
+          if (textRef.current) {
+            textRef.current.style.opacity = 1;
+          }
+        },
+
         onUpdate: ({ progress }) => {
           const sectionNb = progress * (colors.length - 1);
           var fract;
@@ -47,7 +53,7 @@ const Scene2 = ({ scene }) => {
 
           const opacity = 4 * Math.pow(fract, 2) - 4 * fract + 1;
 
-          if (textRef) {
+          if (textRef.current) {
             textRef.current.style.opacity = opacity;
           }
 
@@ -100,9 +106,10 @@ const Scene2 = ({ scene }) => {
 
       <Html className=" pointer-events-none">
         <div className=" w-screen h-screen fixed z-10 -translate-x-1/2 -translate-y-1/2 text-white">
-          <span ref={textRef} className="project_text absolute bottom-5 left-5">
-            Project 1
-          </span>
+          <span
+            ref={textRef}
+            className=" absolute bottom-5 left-5 opacity-0"
+          ></span>
         </div>
       </Html>
     </group>

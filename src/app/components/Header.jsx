@@ -6,8 +6,6 @@ import LogoIcon from "./LogoIcon";
 import { useScrambleText } from "@/utils/useScrambleText";
 
 const Header = ({ color = "black" }) => {
-  const container = useRef();
-
   const refs = {
     experience: useRef(),
     about: useRef(),
@@ -64,7 +62,6 @@ const Header = ({ color = "black" }) => {
 
   return (
     <header
-      ref={container}
       className="w-full fixed top-0  p-4 lg:p-6 h-fit flex justify-between"
       style={{ color: color }}
     >
@@ -73,7 +70,7 @@ const Header = ({ color = "black" }) => {
           id="logo-fit"
           className="absolute left-[16px] lg:left-[24px] top-[16px] lg:top-[24px] w-[62px] h-[52px] opacity-0"
         >
-          <LogoIcon color="white" />
+          <LogoIcon color={color} />
         </div>
 
         <div className="flex-col gap-2 absolute hidden lg:flex lg:left-[144px] top-[16px] lg:top-[24px]">
