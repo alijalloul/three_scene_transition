@@ -1,17 +1,18 @@
 import { shaderMaterial, useFBO } from "@react-three/drei";
 import { createPortal, extend, useFrame, useThree } from "@react-three/fiber";
 import gsap from "gsap";
-import { useEffect, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
 import fragmentShader from "./shaders/fragment.glsl";
 import vertexShader from "./shaders/vertex.glsl";
 
 import useDimensions from "@/utils/useDimensions";
-import Scene1 from "./_components/Scene1";
+import Scene1 from "./_components/Scene1_1";
 import Scene2 from "./_components/Scene2_2";
 import Scene3 from "./_components/Scene3";
 
 import ScrollTrigger from "gsap/ScrollTrigger";
+import Effect from "./_components/Effect";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -35,32 +36,24 @@ const Main = () => {
   const { viewport, gl, clock } = useThree();
   const screenMesh = useRef();
 
-  const scene1 = new THREE.Scene();
-  const scene2 = new THREE.Scene();
-  const scene3 = new THREE.Scene();
+  const scene1 = useMemo(() => new THREE.Scene());
+  const scene2 = useMemo(() => new THREE.Scene());
+  const scene3 = useMemo(() => new THREE.Scene());
 
-  const camera1 = new THREE.PerspectiveCamera(
-    35,
-    windowWidth / windowHeight,
-    0.1,
-    1000
+  const camera1 = useMemo(
+    () => new THREE.PerspectiveCamera(35, windowWidth / windowHeight, 0.1, 1000)
   );
   camera1.position.set(0, 0, 5);
 
-  const camera2 = new THREE.PerspectiveCamera(
-    35,
-    windowWidth / windowHeight,
-    0.1,
-    1000
+  const camera2 = useMemo(
+    () => new THREE.PerspectiveCamera(35, windowWidth / windowHeight, 0.1, 1000)
   );
   camera2.position.set(0, 0, 5);
 
-  const camera3 = new THREE.PerspectiveCamera(
-    35,
-    windowWidth / windowHeight,
-    0.1,
-    1000
+  const camera3 = useMemo(
+    () => new THREE.PerspectiveCamera(35, windowWidth / windowHeight, 0.1, 1000)
   );
+
   camera3.position.set(0, 0, 5);
 
   const renderTarget1 = useFBO();
@@ -91,7 +84,7 @@ const Main = () => {
     return () => {
       tl.kill();
     };
-  }, []);
+  });
 
   useFrame((state) => {
     gl.setRenderTarget(renderTarget1);
@@ -116,7 +109,7 @@ const Main = () => {
 
   return (
     <>
-      {createPortal(<Scene1 scene={scene1} />, scene1)}
+      {createPortal(<Scene1 camera={camera1} scene={scene1} />, scene1)}
       {createPortal(<Scene2 scene={scene2} />, scene2)}
       {createPortal(<Scene3 />, scene3)}
 
@@ -124,6 +117,8 @@ const Main = () => {
         <planeGeometry />
         <transitionMaterial transparent />
       </mesh>
+
+      <Effect />
     </>
   );
 };

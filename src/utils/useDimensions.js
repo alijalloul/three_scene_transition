@@ -18,7 +18,7 @@ const useDimensions = () => {
     window.addEventListener("resize", updateDimensions);
 
     return () => window.removeEventListener("resize", updateDimensions);
-  }, []);
+  });
 
   return dimensions;
 };

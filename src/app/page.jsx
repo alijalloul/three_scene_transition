@@ -10,6 +10,7 @@ import Main from "./components/Main";
 import TitleMarquee from "./components/TitleMarquee";
 
 import ScrollTrigger from "gsap/ScrollTrigger";
+import { Leva } from "leva";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,6 +48,8 @@ export default function Home() {
 
         <Header color={color} />
         <TitleMarquee color={color} />
+
+        <Leva collapsed hidden />
       </div>
     </div>
   );
